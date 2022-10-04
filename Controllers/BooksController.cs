@@ -12,6 +12,8 @@ namespace BookStore.Controllers
     {
         private DataContext _context;
 
+        
+
         //contructor
         //hàm khởi tạo or hàm dựng
         public BooksController(DataContext _context)
@@ -22,7 +24,22 @@ namespace BookStore.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBooks()
         {
-            return Ok(await _context.Books.ToListAsync());
+            //thay vì chỉ hiển thị id của tác giả,
+            //chúng ta cần hiển thị họ tên của tác giả
+            //bằng việc sử dụng join trong linq
+            var result = await (
+                    from b in _context.Books //từ sách
+                    join au in _context.Authors//join sang tác giả
+                    on b.AuthorId equals au.Id // điều kiện join
+                    select new//khởi tạo 1 đối tượng từ 2 tập hợp trên, lọc ra các thông tin cần lấy
+                    {
+                        Id = b.Id,
+                        Title = b.Title,
+                        Price = b.Price,
+                        Author = string.Format("{0} {1}",au.Firstname,au.Lastname)
+                    }
+                ).ToListAsync();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
@@ -44,7 +61,8 @@ namespace BookStore.Controllers
             {
                 Id = new Guid(),
                 Title = requestBook.Title,
-                Price = requestBook.Price
+                Price = requestBook.Price,
+                AuthorId = requestBook.AuthorId
             };
 
             _context.Books.Add(book);
@@ -61,6 +79,7 @@ namespace BookStore.Controllers
 
             book.Title = requestBook.Title;
             book.Price = requestBook.Price;
+            book.AuthorId = requestBook.AuthorId;
 
             await _context.SaveChangesAsync();
             return Ok(book);

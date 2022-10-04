@@ -15,6 +15,7 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("bookstoreConnection"));
 });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
