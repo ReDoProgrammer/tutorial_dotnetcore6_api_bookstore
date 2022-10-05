@@ -59,8 +59,8 @@ namespace BookStore.Controllers
 
             //kiểm tra xem tác giả này có sách nào hay không
             //nếu có thì sẽ không cho xóa
-            var count = await context.Books.CountAsync(x=>x.AuthorId == id);
-            if (count > 0) return BadRequest("Không thể xóa tác giả này khi có sách do tác giả này viết!");
+            //var count = await context.Books.CountAsync(x=>x.AuthorId == id);
+            //if (count > 0) return BadRequest("Không thể xóa tác giả này khi có sách do tác giả này viết!");
 
             //ngược lại, count = 0
             context.Authors.Remove(author);

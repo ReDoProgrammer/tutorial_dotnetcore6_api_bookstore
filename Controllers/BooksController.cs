@@ -23,23 +23,8 @@ namespace BookStore.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetBooks()
-        {
-            //thay vì chỉ hiển thị id của tác giả,
-            //chúng ta cần hiển thị họ tên của tác giả
-            //bằng việc sử dụng join trong linq
-            var result = await (
-                    from b in _context.Books //từ sách
-                    join au in _context.Authors//join sang tác giả
-                    on b.AuthorId equals au.Id // điều kiện join
-                    select new//khởi tạo 1 đối tượng từ 2 tập hợp trên, lọc ra các thông tin cần lấy
-                    {
-                        Id = b.Id,
-                        Title = b.Title,
-                        Price = b.Price,
-                        Author = string.Format("{0} {1}",au.Firstname,au.Lastname)
-                    }
-                ).ToListAsync();
-            return Ok(result);
+        {                       
+            return Ok(await _context.Books.ToListAsync());
         }
 
         [HttpGet("{id}")]
@@ -61,8 +46,8 @@ namespace BookStore.Controllers
             {
                 Id = new Guid(),
                 Title = requestBook.Title,
-                Price = requestBook.Price,
-                AuthorId = requestBook.AuthorId
+                Price = requestBook.Price
+               
             };
 
             _context.Books.Add(book);
@@ -78,8 +63,7 @@ namespace BookStore.Controllers
             if (book == null) return NotFound("Book not found");
 
             book.Title = requestBook.Title;
-            book.Price = requestBook.Price;
-            book.AuthorId = requestBook.AuthorId;
+            book.Price = requestBook.Price;          
 
             await _context.SaveChangesAsync();
             return Ok(book);

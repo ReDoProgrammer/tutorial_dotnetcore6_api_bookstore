@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+BAl5XLIuUup30gQTSYBHXcKbUC7wRdA+ZYkJel1+gmI+pRwAAItzOw+UliyNd4hoolybgaJNa5eE+0o/OXPRg==",
+  "dgSpecHash": "Q8NS9kaWRQJj+Tr5HVrvHvFd3M4Ri1IO1b2ORVKtSyv2EfYLpktHGfd699Yi0j9HsS7bd5OaBWrRrHzYxsv+tw==",
   "success": true,
-  "projectFilePath": "E:\\WS\\.NETCore\\BookStore\\BookStore\\BookStore.csproj",
+  "projectFilePath": "E:\\WS\\.NETCore\\BookStore\\BookStore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
